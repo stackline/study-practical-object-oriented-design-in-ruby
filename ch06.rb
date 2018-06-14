@@ -1,7 +1,9 @@
 # How to write inheritable source code
 #
 # [x] 6.1
+# [ ] 6.2
 
+# Road bike class
 class Bicycle
   attr_reader :size, :tape_color
 
@@ -19,5 +21,10 @@ class Bicycle
   end
 end
 
-p Bicycle.new(size: 25, tape_color: 'red').spares
+bike = Bicycle.new(
+  size: 'M',
+  tape_color: 'red'
+)
 
+p bike.size
+p bike.spares
