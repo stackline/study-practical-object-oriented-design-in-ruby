@@ -2,6 +2,7 @@
 #
 # [x] 6.1
 # [ ] 6.2
+#   - p.146
 
 # Road bike class
 class Bicycle
