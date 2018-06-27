@@ -4,6 +4,7 @@
 # [ ] 6.2
 #   - p.146
 #   - p.147
+#   - p.150
 
 # Road bike class
 class Bicycle
@@ -40,6 +41,13 @@ bike = Bicycle.new(
 
 p bike.size
 p bike.spares
-p bike.front_shock if bike.style == :mountain
-p bike.tape_color if bike.style == :road
-p bike.tape_color
+p bike.class
+p bike.class.superclass
+p bike.class.superclass.superclass
+p bike.class.superclass.superclass.superclass
+
+n = nil
+p n.class
+p n.nil?
+p 'a'.nil?
+
