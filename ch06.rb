@@ -4,6 +4,8 @@
 # [x] 6.2
 # [ ] 6.3
 
+# require 'pry'
+
 # Bicycle class
 class Bicycle
   attr_reader :style, :size, :tape_color,
