@@ -4,6 +4,7 @@
 # [x] 6.2
 # [x] 6.3
 # [ ] 6.4
+#   - p.161
 
 # require 'pry'
 
@@ -11,15 +12,20 @@ puts '--- start ---'
 
 # Abstract bicycle class
 class Bicycle
+  attr_reader :size
+
+  def initialize(args = {})
+    @size = args[:size]
+  end
 end
 
 # Road bike
 class RoadBike < Bicycle
-  attr_reader :size, :tape_color
+  attr_reader :tape_color
 
   def initialize(args)
-    @size = args[:size]
     @tape_color = args[:tape_color]
+    super(args)
   end
 
   def spares
@@ -36,7 +42,7 @@ class MountainBike < Bicycle
   def initialize(args)
     @front_shock = args[:front_shock]
     @rear_shock = args[:rear_shock]
-    # super(args)
+    super(args)
   end
 
   def spares
@@ -49,6 +55,7 @@ road_bike = RoadBike.new(
   tape_color: 'red'
 )
 
+puts 'road_bike.size'
 puts road_bike.size
 
 mountain_bike = MountainBike.new(
@@ -57,4 +64,5 @@ mountain_bike = MountainBike.new(
   rear_shock: 'Fox'
 )
 
+puts 'mountain_bike.size'
 puts mountain_bike.size
