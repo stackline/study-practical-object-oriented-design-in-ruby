@@ -4,18 +4,21 @@
 # [x] 6.2
 # [x] 6.3
 # [ ] 6.4
-#   - p.161
+#   - p.163
 
 # require 'pry'
 
-puts '--- start ---'
+puts '# start'
 
 # Abstract bicycle class
 class Bicycle
-  attr_reader :size
+  attr_reader :size, :chain, :tire_size
 
   def initialize(args = {})
     @size = args[:size]
+    @chain = args[:chain] || 'default'
+    @tire_size = args[:tire_size]
+    raise 'Set default value to tire_size' unless @tire_size
   end
 end
 
@@ -52,17 +55,23 @@ end
 
 road_bike = RoadBike.new(
   size: 'M',
+  tire_size: '26',
   tape_color: 'red'
 )
 
-puts 'road_bike.size'
+puts '## road_bike'
 puts road_bike.size
+puts road_bike.chain
+puts road_bike.tire_size
 
 mountain_bike = MountainBike.new(
   size: 'S',
+  tire_size: '26',
   front_shock: 'Manitou',
   rear_shock: 'Fox'
 )
 
-puts 'mountain_bike.size'
+puts '## mountain_bike'
 puts mountain_bike.size
+puts mountain_bike.chain
+puts mountain_bike.tire_size
