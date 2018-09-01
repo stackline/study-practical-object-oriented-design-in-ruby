@@ -3,8 +3,9 @@
 # [x] 6.1
 # [x] 6.2
 # [x] 6.3
-# [ ] 6.4
-#   - p.165
+# [x] 6.4
+#   - p.167
+# [ ] 6.5
 
 # require 'pry'
 
@@ -22,6 +23,12 @@ class Bicycle
 
   def default_chain
     '10-speed'
+  end
+
+  def default_tire_size
+    # raise NotImplementedError, "This #{self.class} cannot respond to:"
+    raise NotImplementedError,
+          "You have to implement #{__method__} method in #{self.class} class."
   end
 end
 
@@ -64,6 +71,13 @@ class MountainBike < Bicycle
   end
 end
 
+# recumbent
+class RecumbentBike < Bicycle
+  def default_chain
+    '9-speed'
+  end
+end
+
 road_bike = RoadBike.new(
   size: 'M',
   tape_color: 'red'
@@ -82,3 +96,7 @@ mountain_bike = MountainBike.new(
 puts '## mountain_bike'
 puts mountain_bike.tire_size
 puts mountain_bike.chain
+
+puts '## recumbent_bike'
+puts recumbent_bike = RecumbentBike.new
+puts recumbent_bike.chain
