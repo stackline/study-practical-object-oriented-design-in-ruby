@@ -100,7 +100,9 @@ end
 class TestBicycle < Minitest::Test
   def setup
     @road_bike = RoadBike.new(size: 'M', tape_color: 'red')
-    @mountain_bike = MountainBike.new(size: 'S', front_shock: 'Manitou', rear_shock: 'Fox')
+    @mountain_bike = MountainBike.new(
+      size: 'S', front_shock: 'Manitou', rear_shock: 'Fox'
+    )
     @recumbent_bike = RecumbentBike.new(flag: 'tall and orange')
   end
 
