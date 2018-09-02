@@ -102,6 +102,6 @@ puts mountain_bike.tire_size
 puts mountain_bike.chain
 
 puts '## recumbent_bike'
-puts recumbent_bike = RecumbentBike.new
+recumbent_bike = RecumbentBike.new
 puts recumbent_bike.chain
 puts recumbent_bike.tire_size
