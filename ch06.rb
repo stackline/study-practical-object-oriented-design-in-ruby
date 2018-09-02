@@ -82,7 +82,7 @@ class MountainBike < Bicycle
   end
 end
 
-# recumbent
+# Recumbent bike
 class RecumbentBike < Bicycle
   attr_reader :flag
 
