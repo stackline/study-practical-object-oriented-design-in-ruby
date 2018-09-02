@@ -77,6 +77,16 @@ end
 
 # recumbent
 class RecumbentBike < Bicycle
+  attr_reader :flag
+
+  def initialize(args)
+    @flag = args[:flag]
+  end
+
+  def spares
+    super.merge(flag: flag)
+  end
+
   def default_chain
     '9-speed'
   end
@@ -109,6 +119,7 @@ puts mountain_bike.spares
 
 puts "\n"
 puts '## recumbent_bike'
-recumbent_bike = RecumbentBike.new
+recumbent_bike = RecumbentBike.new(flag: 'tall and orange')
 puts recumbent_bike.chain
 puts recumbent_bike.tire_size
+puts recumbent_bike.spares
