@@ -29,6 +29,13 @@ class Bicycle
     raise NotImplementedError,
           "You have to implement #{__method__} method in #{self.class} class."
   end
+
+  def spares
+    {
+      chain: chain,
+      tire_size: tire_size
+    }
+  end
 end
 
 # Road bike
@@ -41,13 +48,11 @@ class RoadBike < Bicycle
   end
 
   def spares
-    { chain: '10-speed',
-      tire_size: '23', # milimeters
-      tape_color: tape_color }
+    super.merge(tape_color: tape_color)
   end
 
   def default_tire_size
-    '23'
+    '23' # mili-meters
   end
 end
 
@@ -89,6 +94,7 @@ road_bike = RoadBike.new(
 )
 puts road_bike.chain
 puts road_bike.tire_size
+puts road_bike.spares
 
 puts "\n"
 puts '## mountain_bike'
@@ -99,6 +105,7 @@ mountain_bike = MountainBike.new(
 )
 puts mountain_bike.chain
 puts mountain_bike.tire_size
+puts mountain_bike.spares
 
 puts "\n"
 puts '## recumbent_bike'
