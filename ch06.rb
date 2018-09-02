@@ -76,6 +76,10 @@ class RecumbentBike < Bicycle
   def default_chain
     '9-speed'
   end
+
+  def default_tire_size
+    '1.0'
+  end
 end
 
 road_bike = RoadBike.new(
@@ -100,3 +104,4 @@ puts mountain_bike.chain
 puts '## recumbent_bike'
 puts recumbent_bike = RecumbentBike.new
 puts recumbent_bike.chain
+puts recumbent_bike.tire_size
