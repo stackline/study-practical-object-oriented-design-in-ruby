@@ -8,8 +8,7 @@
 # [ ] 6.5
 
 # require 'pry'
-
-puts '# start'
+require 'minitest/autorun'
 
 # Abstract bicycle class
 class Bicycle
@@ -96,30 +95,43 @@ class RecumbentBike < Bicycle
   end
 end
 
-puts "\n"
-puts '## road_bike'
-road_bike = RoadBike.new(
-  size: 'M',
-  tape_color: 'red'
-)
-puts road_bike.chain
-puts road_bike.tire_size
-puts road_bike.spares
+# Minitest unit tests
+# ref. https://github.com/seattlerb/minitest#unit-tests
+class TestBicycle < Minitest::Test
+  def setup
+    @road_bike = RoadBike.new(size: 'M', tape_color: 'red')
+    @mountain_bike = MountainBike.new(size: 'S', front_shock: 'Manitou', rear_shock: 'Fox')
+    @recumbent_bike = RecumbentBike.new(flag: 'tall and orange')
+  end
 
-puts "\n"
-puts '## mountain_bike'
-mountain_bike = MountainBike.new(
-  size: 'S',
-  front_shock: 'Manitou',
-  rear_shock: 'Fox'
-)
-puts mountain_bike.chain
-puts mountain_bike.tire_size
-puts mountain_bike.spares
+  def test_road_bike
+    before_puts(@road_bike)
+    assert_equal '10-speed', @road_bike.chain
+    assert_equal '23', @road_bike.tire_size
+    spares = { chain: '10-speed', tire_size: '23', tape_color: 'red' }
+    assert_equal spares, @road_bike.spares
+  end
 
-puts "\n"
-puts '## recumbent_bike'
-recumbent_bike = RecumbentBike.new(flag: 'tall and orange')
-puts recumbent_bike.chain
-puts recumbent_bike.tire_size
-puts recumbent_bike.spares
+  def test_mountain_bike
+    before_puts(@mountain_bike)
+    assert_equal '10-speed', @mountain_bike.chain
+    assert_equal '2.1', @mountain_bike.tire_size
+    spares = { chain: '10-speed', tire_size: '2.1', rear_shock: 'Fox' }
+    assert_equal spares, @mountain_bike.spares
+  end
+
+  def test_recumbent_bike
+    before_puts(@recumbent_bike)
+    assert_nil nil, @recumbent_bike.chain
+    assert_nil nil, @recumbent_bike.tire_size
+    spares = { chain: nil, tire_size: nil, flag: 'tall and orange' }
+    assert_equal spares, @recumbent_bike.spares
+  end
+
+  private
+
+  def before_puts(bike)
+    puts "\n# #{bike.class} class"
+    puts bike.spares
+  end
+end
