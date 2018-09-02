@@ -26,7 +26,6 @@ class Bicycle
   end
 
   def default_tire_size
-    # raise NotImplementedError, "This #{self.class} cannot respond to:"
     raise NotImplementedError,
           "You have to implement #{__method__} method in #{self.class} class."
   end
