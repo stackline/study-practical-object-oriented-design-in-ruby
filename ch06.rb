@@ -82,25 +82,26 @@ class RecumbentBike < Bicycle
   end
 end
 
+puts "\n"
+puts '## road_bike'
 road_bike = RoadBike.new(
   size: 'M',
   tape_color: 'red'
 )
-
-puts '## road_bike'
-puts road_bike.tire_size
 puts road_bike.chain
+puts road_bike.tire_size
 
+puts "\n"
+puts '## mountain_bike'
 mountain_bike = MountainBike.new(
   size: 'S',
   front_shock: 'Manitou',
   rear_shock: 'Fox'
 )
-
-puts '## mountain_bike'
-puts mountain_bike.tire_size
 puts mountain_bike.chain
+puts mountain_bike.tire_size
 
+puts "\n"
 puts '## recumbent_bike'
 recumbent_bike = RecumbentBike.new
 puts recumbent_bike.chain
