@@ -39,7 +39,11 @@ class Bicycle
     {
       chain: chain,
       tire_size: tire_size
-    }
+    }.merge(local_spares)
+  end
+
+  def local_spares
+    {}
   end
 end
 
@@ -51,12 +55,12 @@ class RoadBike < Bicycle
     @tape_color = args[:tape_color]
   end
 
-  def spares
-    super.merge(tape_color: tape_color)
-  end
-
   def default_tire_size
     '23' # mili-meters
+  end
+
+  def local_spares
+    { tape_color: tape_color }
   end
 end
 
