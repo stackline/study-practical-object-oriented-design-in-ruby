@@ -4,8 +4,8 @@
 # [x] 6.2
 # [x] 6.3
 # [x] 6.4
-#   - p.167
-# [ ] 6.5
+# [x] 6.5
+# [x] 6.6
 
 # require 'pry'
 require 'minitest/autorun'
