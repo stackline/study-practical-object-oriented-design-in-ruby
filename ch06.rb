@@ -86,12 +86,8 @@ end
 class RecumbentBike < Bicycle
   attr_reader :flag
 
-  def initialize(args)
+  def post_initialize(args)
     @flag = args[:flag]
-  end
-
-  def spares
-    super.merge(flag: flag)
   end
 
   def default_chain
@@ -99,7 +95,11 @@ class RecumbentBike < Bicycle
   end
 
   def default_tire_size
-    '1.0'
+    '28'
+  end
+
+  def local_spares
+    { flag: flag }
   end
 end
 
@@ -132,9 +132,9 @@ class TestBicycle < Minitest::Test
 
   def test_recumbent_bike
     before_puts(@recumbent_bike)
-    assert_nil nil, @recumbent_bike.chain
-    assert_nil nil, @recumbent_bike.tire_size
-    spares = { chain: nil, tire_size: nil, flag: 'tall and orange' }
+    assert_equal '9-speed', @recumbent_bike.chain
+    assert_equal '28', @recumbent_bike.tire_size
+    spares = { chain: '9-speed', tire_size: '28', flag: 'tall and orange' }
     assert_equal spares, @recumbent_bike.spares
   end
 
