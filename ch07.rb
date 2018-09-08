@@ -1,6 +1,7 @@
 # Share role behavior with module
 
-# [ ] 7.1 p.194
+# [x] 7.1
+# [ ] 7.2 p.199
 
 require 'minitest/autorun'
 
