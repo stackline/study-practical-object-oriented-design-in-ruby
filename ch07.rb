@@ -1,6 +1,6 @@
 # Share role behavior with module
 
-# [ ] 7.1 p.186
+# [ ] 7.1 p.194
 
 require 'minitest/autorun'
 
@@ -56,6 +56,24 @@ class Bicycle
   end
 end
 
+# vehicle
+class Vehicle
+  include Schedulable
+
+  def lead_days
+    3
+  end
+end
+
+# mechanic
+class Mechanic
+  include Schedulable
+
+  def lead_days
+    4
+  end
+end
+
 require 'date'
 
 # schedule class test
@@ -83,5 +101,33 @@ class TestBicycle < Minitest::Test
     starting = Date.parse('2015/09/04')
     ending = Date.parse('2015/09/10')
     assert_equal(true, @bike.schedulable?(starting, ending))
+  end
+end
+
+# vehicle class test
+class TestVehicle < Minitest::Test
+  def setup
+    puts "\n# Vehicle class test"
+    @vehicle = Vehicle.new
+  end
+
+  def test_schedulable?
+    starting = Date.parse('2015/09/04')
+    ending = Date.parse('2015/09/10')
+    assert_equal(true, @vehicle.schedulable?(starting, ending))
+  end
+end
+
+# mechanic class test
+class TestMechanic < Minitest::Test
+  def setup
+    puts "\n# Mechanic class test"
+    @mechanic = Mechanic.new
+  end
+
+  def test_schedulable?
+    starting = Date.parse('2015/09/04')
+    ending = Date.parse('2015/09/10')
+    assert_equal(true, @mechanic.schedulable?(starting, ending))
   end
 end
