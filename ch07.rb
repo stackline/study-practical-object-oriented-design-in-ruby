@@ -46,6 +46,7 @@ require 'date'
 # schedule class test
 class TestSchedule < Minitest::Test
   def setup
+    puts "\n# Schedule class test"
     @schedule = Schedule.new
     @object = Class.new
   end
@@ -59,6 +60,7 @@ end
 # bicycle class test
 class TestBicycle < Minitest::Test
   def setup
+    puts "\n# Bicycle class test"
     @bike = Bicycle.new
   end
 
