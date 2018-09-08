@@ -18,23 +18,38 @@ class Schedule
   def remove(target, starting, ending) end
 end
 
-# bicycle
-class Bicycle
-  attr_reader :schedule, :size, :chain, :tire_size
+# schedulable module
+module Schedulable
+  attr_writer :schedule
 
-  def initialize(args = {})
-    @schedule = args[:schedule] || Schedule.new
+  def schedule
+    @schedule ||= ::Schedule.new
   end
 
   def schedulable?(start_date, end_date)
     !scheduled?(start_date - lead_days, end_date)
   end
 
-  private
-
   def scheduled?(start_date, end_date)
     schedule.scheduled?(self, start_date, end_date)
   end
+
+  def lead_days
+    0
+  end
+end
+
+# bicycle
+class Bicycle
+  include Schedulable
+
+  attr_reader :schedule, :size, :chain, :tire_size
+
+  def initialize(args = {})
+    @schedule = args[:schedule] || Schedule.new
+  end
+
+  private
 
   def lead_days
     1
