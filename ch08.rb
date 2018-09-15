@@ -1,7 +1,10 @@
 # Combine objects by composition
 
 # [x] 8 intro
-# [ ] 8.1 p.208
+# [x] 8.1
+# [ ] 8.2 p.211
+
+require 'minitest/autorun'
 
 class Bicycle
   attr_reader :size, :parts
@@ -83,3 +86,50 @@ class MountainBikeParts < Parts
   end
 end
 
+class TestRoadBikeParts < Minitest::Test
+  def setup
+    @road_bike = Bicycle.new(
+      size: 'L',
+      parts: RoadBikeParts.new(tape_color: 'red')
+    )
+  end
+
+  def test_size
+    puts "\n## The size of the road bike"
+    assert_equal 'L', @road_bike.size
+  end
+
+  def test_spares
+    puts "\n## The spare parts of the road bike"
+    spares = {
+      tire_size: '23',
+      chain: '10-speed',
+      tape_color: 'red'
+    }
+    assert_equal spares, @road_bike.spares
+  end
+end
+
+class TestMountainBikeParts < Minitest::Test
+  def setup
+    @mountain_bike = Bicycle.new(
+      size: 'L',
+      parts: MountainBikeParts.new(rear_shock: 'Fox')
+    )
+  end
+
+  def test_size
+    puts "\n## The size of the mountain bike"
+    assert_equal 'L', @mountain_bike.size
+  end
+
+  def test_spares
+    puts "\n## The spare parts of the mountain bike"
+    spares = {
+      tire_size: '2.1',
+      chain: '10-speed',
+      rear_shock: 'Fox'
+    }
+    assert_equal spares, @mountain_bike.spares
+  end
+end
