@@ -3,7 +3,7 @@
 # [x] 8 intro
 # [x] 8.1
 # [x] 8.2
-# [ ] 8.3 p.220
+# [ ] 8.3 p.223
 
 require 'minitest/autorun'
 # require 'pry-byebug'
@@ -43,6 +43,20 @@ class Part
     @name = args[:name]
     @description = args[:description]
     @needs_spare = args.fetch(:needs_spare, true)
+  end
+end
+
+module PartsFactory
+  def self.build(config, part_class = Part, parts_class = Parts)
+    parts = config.collect do |part_config|
+      part_class.new(
+        name: part_config[0],
+        description: part_config[1],
+        needs_spare: part_config.fetch(2, true)
+      )
+    end
+
+    parts_class.new(parts)
   end
 end
 
@@ -126,5 +140,47 @@ class TestParts < Minitest::Test
     assert_raises NoMethodError do
       @mountain_bike.parts + @mountain_bike.parts
     end
+  end
+end
+
+class TestPartsFactory < Minitest::Test
+  def setup
+    @road_parts = PartsFactory.build(road_config)
+    @mountain_parts = PartsFactory.build(mountain_config)
+  end
+
+  def test_build_road_parts
+    puts "\n## Build road parts class from road config"
+    assert_equal Parts, @road_parts.class
+    assert_equal Part, @road_parts.spares.first.class
+    assert_equal 3, @road_parts.size
+    assert_equal 3, @road_parts.spares.size
+  end
+
+  def test_build_mountain_parts
+    puts "\n## Build mountain parts class from mountain config"
+    assert_equal Parts, @mountain_parts.class
+    assert_equal Part, @mountain_parts.spares.first.class
+    assert_equal 4, @mountain_parts.size
+    assert_equal 3, @mountain_parts.spares.size
+  end
+
+  private
+
+  def road_config
+    [
+      %w[chain 10-speed],
+      %w[tire_size 23],
+      %w[tape_color red]
+    ]
+  end
+
+  def mountain_config
+    [
+      %w[chain 10-speed],
+      %w[tire_size 2.1],
+      ['front_shock', 'Manitou', false],
+      %w[rear_shock Fox]
+    ]
   end
 end
