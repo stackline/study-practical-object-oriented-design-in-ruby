@@ -2,10 +2,12 @@
 
 # [x] 8 intro
 # [x] 8.1
-# [ ] 8.2 p.216
+# [x] 8.2
+# [ ] 8.3 p.220
 
 require 'minitest/autorun'
 # require 'pry-byebug'
+require 'forwardable'
 
 class Bicycle
   attr_reader :size, :parts
@@ -21,14 +23,16 @@ class Bicycle
 end
 
 class Parts
-  attr_reader :parts
+  extend Forwardable
+  def_delegators :@parts, :size, :each
+  include Enumerable
 
   def initialize(parts)
     @parts = parts
   end
 
   def spares
-    parts.select(&:needs_spare)
+    select(&:needs_spare)
   end
 end
 
@@ -88,5 +92,39 @@ class TestMountainBikeParts < Minitest::Test
     puts "\n## The spare parts of the mountain bike"
     spares = [@chain, @mountain_tire, @rear_shock]
     assert_equal spares, @mountain_bike.spares
+  end
+end
+
+class TestParts < Minitest::Test
+  def setup
+    @chain = Part.new(name: 'chain', description: '10-speed')
+    @mountain_tire = Part.new(name: 'tire_size', description: '2.1')
+    @front_shock = Part.new(name: 'front_shock',
+                            description: 'Manitou',
+                            needs_spare: false)
+    @rear_shock = Part.new(name: 'rear_shock', description: 'Fox')
+    parts = Parts.new([@chain, @mountain_tire, @front_shock, @rear_shock])
+    @mountain_bike = Bicycle.new(size: 'L', parts: parts)
+  end
+
+  def test_spares_size
+    puts "\n## The size of spares that the mountain bike needs"
+    assert_equal 3, @mountain_bike.spares.size
+  end
+
+  def test_parts_size
+    puts "\n## The size of parts that the mountain bike has"
+    assert_equal 4, @mountain_bike.parts.size
+  end
+
+  def test_plus
+    puts "\n## Parts class does not have a plus method"
+    # MEMO: You can also describe as the following.
+    #
+    # proc = proc { @mountain_bike.parts + @mountain_bike.parts }
+    # assert_raises NoMethodError, &proc
+    assert_raises NoMethodError do
+      @mountain_bike.parts + @mountain_bike.parts
+    end
   end
 end
