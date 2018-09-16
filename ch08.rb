@@ -3,11 +3,13 @@
 # [x] 8 intro
 # [x] 8.1
 # [x] 8.2
-# [ ] 8.3 p.223
+# [x] 8.3
+# [ ] 8.4 p.224
 
 require 'minitest/autorun'
 # require 'pry-byebug'
 require 'forwardable'
+require 'ostruct'
 
 class Bicycle
   attr_reader :size, :parts
@@ -47,16 +49,21 @@ class Part
 end
 
 module PartsFactory
-  def self.build(config, part_class = Part, parts_class = Parts)
-    parts = config.collect do |part_config|
-      part_class.new(
+  class << self
+    def build(config, parts_class = Parts)
+      parts = config.collect { |part_config| create_part(part_config) }
+      parts_class.new(parts)
+    end
+
+    private
+
+    def create_part(part_config)
+      OpenStruct.new(
         name: part_config[0],
         description: part_config[1],
         needs_spare: part_config.fetch(2, true)
       )
     end
-
-    parts_class.new(parts)
   end
 end
 
@@ -152,7 +159,7 @@ class TestPartsFactory < Minitest::Test
   def test_build_road_parts
     puts "\n## Build road parts class from road config"
     assert_equal Parts, @road_parts.class
-    assert_equal Part, @road_parts.spares.first.class
+    assert_equal OpenStruct, @road_parts.spares.first.class
     assert_equal 3, @road_parts.size
     assert_equal 3, @road_parts.spares.size
   end
@@ -160,7 +167,7 @@ class TestPartsFactory < Minitest::Test
   def test_build_mountain_parts
     puts "\n## Build mountain parts class from mountain config"
     assert_equal Parts, @mountain_parts.class
-    assert_equal Part, @mountain_parts.spares.first.class
+    assert_equal OpenStruct, @mountain_parts.spares.first.class
     assert_equal 4, @mountain_parts.size
     assert_equal 3, @mountain_parts.spares.size
   end
