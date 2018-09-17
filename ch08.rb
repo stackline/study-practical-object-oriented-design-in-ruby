@@ -51,8 +51,33 @@ module PartsFactory
       OpenStruct.new(
         name: part_config[0],
         description: part_config[1],
-        needs_spare: part_config.fetch(2, true)
+        # needs_spare: part_config.fetch(2, true)
+        needs_spare: fetch_needs_config(part_config[2])
       )
+    end
+
+    def fetch_needs_config(needs_config)
+      if needs_config.nil?
+        true
+      else
+        to_bool(needs_config)
+      end
+    end
+
+    def to_bool(needs_spare)
+      case needs_spare
+      when true? then true
+      when false? then false
+      else raise TypeError, 'Can only specify "true" or "false"'
+      end
+    end
+
+    def true?
+      ->(config) { config.to_s == 'true' }
+    end
+
+    def false?
+      ->(config) { config.to_s == 'false' }
     end
   end
 end
@@ -108,11 +133,27 @@ class TestPartsFactory < Minitest::Test
     assert_equal part, @road_parts.spares.first
   end
 
+  def test_build_error
+    puts "\nPartsFactory.build error"
+    e = assert_raises TypeError do
+      PartsFactory.build(incorrect_road_config)
+    end
+    assert_equal 'Can only specify "true" or "false"', e.message
+  end
+
   private
 
   def road_config
     [
       %w[chain 10-speed],
+      %w[tire_size 23],
+      %w[tape_color red]
+    ]
+  end
+
+  def incorrect_road_config
+    [
+      %w[chain 10-speed incorrect_config],
       %w[tire_size 23],
       %w[tape_color red]
     ]
@@ -157,7 +198,7 @@ class TestParts < Minitest::Test
     [
       %w[chain 10-speed],
       %w[tire_size 2.1],
-      ['front_shock', 'Manitou', false],
+      %w[front_shock Manitou false],
       %w[rear_shock Fox]
     ]
   end
