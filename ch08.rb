@@ -53,15 +53,15 @@ module PartsFactory
         name: part_config[0],
         description: part_config[1],
         # needs_spare: part_config.fetch(2, true)
-        needs_spare: fetch_needs_config(part_config[2])
+        needs_spare: fetch_needs_spare(part_config[2])
       )
     end
 
-    def fetch_needs_config(needs_config)
-      if needs_config.nil?
+    def fetch_needs_spare(needs_spare)
+      if needs_spare.nil?
         true
       else
-        to_bool(needs_config)
+        to_bool(needs_spare)
       end
     end
 
