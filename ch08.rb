@@ -5,7 +5,7 @@
 # [x] 8.2
 # [x] 8.3
 # [x] 8.4
-# [ ] 8.5 p.229
+# [ ] 8.5 p.230
 
 require 'minitest/autorun'
 require 'pry-byebug'
