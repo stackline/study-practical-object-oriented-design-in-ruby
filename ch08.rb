@@ -8,7 +8,7 @@
 # [ ] 8.5 p.229
 
 require 'minitest/autorun'
-# require 'pry-byebug'
+require 'pry-byebug'
 
 class Bicycle
   attr_reader :size, :parts
@@ -58,27 +58,12 @@ module PartsFactory
     end
 
     def fetch_needs_spare(needs_spare)
-      if needs_spare.nil?
-        true
-      else
-        to_bool(needs_spare)
-      end
-    end
-
-    def to_bool(needs_spare)
       case needs_spare
-      when true? then true
-      when false? then false
+      when nil then true
+      when 'true' then true
+      when 'false' then false
       else raise TypeError, 'Can only specify "true" or "false"'
       end
-    end
-
-    def true?
-      ->(config) { config.to_s == 'true' }
-    end
-
-    def false?
-      ->(config) { config.to_s == 'false' }
     end
   end
 end
