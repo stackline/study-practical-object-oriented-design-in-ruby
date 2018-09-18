@@ -116,6 +116,33 @@ class TestBicycle < Minitest::Test
   end
 end
 
+class TestRecumbentBike < Minitest::Test
+  def setup
+    @parts = PartsFactory.build(recumbent_config)
+    @recumbent_bike = Bicycle.new(size: 'L', parts: @parts)
+  end
+
+  def test_size
+    puts "\nBicycle#size recumbent_bike"
+    assert_equal 'L', @recumbent_bike.size
+  end
+
+  def test_spares
+    puts "\nBicycle#spares recumbent_bike"
+    assert_equal @parts.spares, @recumbent_bike.spares
+  end
+
+  private
+
+  def recumbent_config
+    [
+      %w[chain 9-speed],
+      %w[tire_size 28],
+      %w[flag tall\ and\ orange]
+    ]
+  end
+end
+
 class TestPartsFactory < Minitest::Test
   def setup
     @road_parts = PartsFactory.build(road_config)
