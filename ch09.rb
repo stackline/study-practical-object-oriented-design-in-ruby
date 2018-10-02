@@ -1,7 +1,7 @@
 # Design a cost-effective test
 
 # [x] 9.1
-# [ ] 9.2 p.258
+# [ ] 9.2 p.261
 
 class Wheel
   attr_reader :rim, :tire
