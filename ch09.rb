@@ -1,7 +1,8 @@
 # Design a cost-effective test
 
 # [x] 9.1
-# [ ] 9.2 p.261
+# [x] 9.2
+# [ ] 9.3 p.263
 
 class Wheel
   attr_reader :rim, :tire
@@ -11,7 +12,7 @@ class Wheel
     @tire = tire
   end
 
-  def width
+  def diameter
     rim + (tire * 2)
   end
 end
