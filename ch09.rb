@@ -11,7 +11,7 @@ class Wheel
     @tire = tire
   end
 
-  def diameter
+  def width
     rim + (tire * 2)
   end
 end
