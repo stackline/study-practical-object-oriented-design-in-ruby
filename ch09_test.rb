@@ -25,9 +25,25 @@ class DiameterDouble
 end
 
 class GearTest < MiniTest::Test
-  def test_calculates_gear_inches
+  def setup
     wheel = DiameterDouble.new
-    gear = Gear.new(chainring: 52, cog: 11, wheel: wheel)
-    assert_in_delta(47.27, gear.gear_inches, 0.01)
+    @observer = MiniTest::Mock.new
+    @gear = Gear.new(chainring: 52, cog: 11, wheel: wheel, observer: @observer)
+  end
+
+  def test_calculates_gear_inches
+    assert_in_delta(47.27, @gear.gear_inches, 0.01)
+  end
+
+  def test_notifies_observers_when_cogs_change
+    @observer.expect(:changed, true, [52, 27])
+    @gear.set_cog(27)
+    assert_equal true, @observer.verify
+  end
+
+  def test_notifies_observers_when_chainrings_change
+    @observer.expect(:changed, true, [42, 11])
+    @gear.set_chainring(42)
+    assert_equal true, @observer.verify
   end
 end
