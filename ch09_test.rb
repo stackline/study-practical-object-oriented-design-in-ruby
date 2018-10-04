@@ -80,3 +80,14 @@ class DriverTest < MiniTest::Test
     @driver = @object = Driver.new
   end
 end
+
+class TripTest < MiniTest::Test
+  def test_requests_trip_preparation
+    preparer = MiniTest::Mock.new
+    trip = Trip.new
+    preparer.expect(:prepare_trip, 3, [trip])
+
+    trip.prepare([preparer])
+    assert_equal true, preparer.verify
+  end
+end

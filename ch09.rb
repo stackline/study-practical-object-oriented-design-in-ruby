@@ -4,7 +4,7 @@
 # [x] 9.2
 # [x] 9.3
 # [x] 9.4
-# [ ] 9.5 p.270
+# [ ] 9.5 p.276
 
 class Wheel
   attr_reader :rim, :tire
