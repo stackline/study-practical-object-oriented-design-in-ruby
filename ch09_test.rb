@@ -144,17 +144,41 @@ module BicycleSubclassTest
   end
 end
 
+class StubbedBike < Bicycle
+  def default_tire_size
+    0
+  end
+
+  def local_spares
+    { saddle: 'painful' }
+  end
+end
+
+class StubbedBikeTest < MiniTest::Test
+  include BicycleSubclassTest
+
+  def setup
+    @object = StubbedBike.new
+  end
+end
+
 class BicycleTest < MiniTest::Test
   include BicycleInterfaceTest
 
   def setup
     @bike = @object = Bicycle.new(tire_size: 0)
+    @stubbed_bike = StubbedBike.new
   end
 
   def test_forces_subclasses_to_implement_default_tire_size
     assert_raises(NotImplementedError) do
       @bike.default_tire_size
     end
+  end
+
+  def test_includes_local_spares_in_spares
+    expected_spares = { tire_size: 0, chain: '10-speed', saddle: 'painful' }
+    assert_equal expected_spares, @stubbed_bike.spares
   end
 end
 
