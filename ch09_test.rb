@@ -160,3 +160,12 @@ class RoadBikeTest < MiniTest::Test
     @bike = @object = RoadBike.new
   end
 end
+
+class MountainBikeTest < MiniTest::Test
+  include BicycleInterfaceTest
+  include BicycleSubclassTest
+
+  def setup
+    @bike = @object = MountainBike.new
+  end
+end
