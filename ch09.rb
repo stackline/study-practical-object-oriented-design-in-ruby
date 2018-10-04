@@ -37,12 +37,12 @@ class Gear
     chainring / cog.to_f
   end
 
-  def set_cog(new_cog)
+  def cog=(new_cog)
     @cog = new_cog
     changed
   end
 
-  def set_chainring(new_chainring)
+  def chainring=(new_chainring)
     @chainring = new_chainring
     changed
   end

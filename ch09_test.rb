@@ -37,13 +37,13 @@ class GearTest < MiniTest::Test
 
   def test_notifies_observers_when_cogs_change
     @observer.expect(:changed, true, [52, 27])
-    @gear.set_cog(27)
+    @gear.cog = 27
     assert_equal true, @observer.verify
   end
 
   def test_notifies_observers_when_chainrings_change
     @observer.expect(:changed, true, [42, 11])
-    @gear.set_chainring(42)
+    @gear.chainring = 42
     assert_equal true, @observer.verify
   end
 end
