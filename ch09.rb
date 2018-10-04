@@ -4,7 +4,8 @@
 # [x] 9.2
 # [x] 9.3
 # [x] 9.4
-# [ ] 9.5 p.276
+# [x] 9.5
+# [ ] 9.6 p.281
 
 class Wheel
   attr_reader :rim, :tire
@@ -14,7 +15,7 @@ class Wheel
     @tire = tire
   end
 
-  def diameter
+  def width
     rim + (tire * 2)
   end
 end
@@ -30,7 +31,7 @@ class Gear
   end
 
   def gear_inches
-    ratio * wheel.diameter
+    ratio * wheel.width
   end
 
   def ratio
